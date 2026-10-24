@@ -1,0 +1,781 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Segoe UI", "Tahoma", "Arial", "Noto Sans Arabic", system-ui, sans-serif;
+
+  /* Dark yellow + charcoal brand palette (hex for max browser support) */
+  --color-brand-50: #fffbeb;
+  --color-brand-100: #fef3c7;
+  --color-brand-200: #fde68a;
+  --color-brand-300: #fcd34d;
+  --color-brand-400: #fbbf24;
+  --color-brand-500: #d97706;
+  --color-brand-600: #b45309;
+  --color-brand-700: #92400e;
+  --color-brand-800: #78350f;
+  --color-brand-900: #451a03;
+
+  --color-charcoal-50: #fafaf9;
+  --color-charcoal-100: #f5f5f4;
+  --color-charcoal-200: #e7e5e4;
+  --color-charcoal-300: #d6d3d1;
+  --color-charcoal-400: #a8a29e;
+  --color-charcoal-500: #78716c;
+  --color-charcoal-600: #57534e;
+  --color-charcoal-700: #44403c;
+  --color-charcoal-800: #292524;
+  --color-charcoal-900: #1c1917;
+  --color-charcoal-950: #0c0a09;
+}
+
+html {
+  scroll-behavior: auto;
+  color-scheme: light;
+}
+
+/* Keep page anchored at top when navigating between routes */
+html,
+body,
+#root {
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f4;
+  color: #1c1917;
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  background-color: #f5f5f4;
+  color: #1c1917;
+}
+
+/* Brand utility classes with solid hex (always visible) */
+.bg-brand {
+  background-color: #b45309 !important;
+  color: #ffffff !important;
+}
+.bg-brand:hover,
+.hover\:bg-brand-dark:hover {
+  background-color: #92400e !important;
+}
+.bg-brand-dark {
+  background-color: #92400e !important;
+  color: #ffffff !important;
+}
+.bg-brand-soft {
+  background-color: #fef3c7 !important;
+}
+.bg-charcoal {
+  background-color: #1c1917 !important;
+  color: #f5f5f4 !important;
+}
+.bg-charcoal-deep {
+  background-color: #0c0a09 !important;
+  color: #f5f5f4 !important;
+}
+.bg-page {
+  background-color: #f5f5f4 !important;
+}
+.bg-card {
+  background-color: #ffffff !important;
+  border-color: #d6d3d1 !important;
+}
+
+.text-brand {
+  color: #b45309 !important;
+}
+.text-brand-dark {
+  color: #92400e !important;
+}
+.text-charcoal {
+  color: #1c1917 !important;
+}
+.text-muted {
+  color: #57534e !important;
+}
+.text-soft {
+  color: #78716c !important;
+}
+.text-on-dark {
+  color: #fafaf9 !important;
+}
+.text-on-brand {
+  color: #ffffff !important;
+}
+
+.border-brand {
+  border-color: #b45309 !important;
+}
+.border-charcoal {
+  border-color: #d6d3d1 !important;
+}
+
+/* Solid gradient fallbacks — never transparent/white */
+.hero-gradient {
+  background-color: #0c0a09;
+  background-image: linear-gradient(135deg, #0c0a09 0%, #1c1917 45%, #292524 100%);
+  color: #fafaf9;
+}
+.hero-glow-amber {
+  background: radial-gradient(circle, rgba(180, 83, 9, 0.45) 0%, transparent 70%);
+}
+.hero-glow-charcoal {
+  background: radial-gradient(circle, rgba(68, 64, 60, 0.55) 0%, transparent 70%);
+}
+.card-gradient {
+  background-color: #b45309;
+  background-image: linear-gradient(135deg, #b45309 0%, #92400e 50%, #292524 100%);
+  color: #ffffff;
+}
+.banner-gradient {
+  background-color: #b45309;
+  background-image: linear-gradient(to left, #b45309 0%, #78350f 50%, #292524 100%);
+  color: #ffffff;
+}
+.icon-gradient {
+  background-color: #b45309;
+  background-image: linear-gradient(135deg, #b45309 0%, #292524 100%);
+  color: #ffffff;
+}
+.btn-primary {
+  background-color: #b45309 !important;
+  color: #ffffff !important;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #92400e !important;
+  color: #ffffff !important;
+}
+.btn-secondary {
+  background-color: #1c1917 !important;
+  color: #fafaf9 !important;
+}
+.btn-secondary:hover {
+  background-color: #292524 !important;
+}
+.nav-active {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+}
+.nav-idle {
+  color: #57534e !important;
+}
+.nav-idle:hover {
+  background-color: #e7e5e4 !important;
+  color: #1c1917 !important;
+}
+.chip-yellow {
+  background-color: #fef3c7 !important;
+  color: #78350f !important;
+}
+.chip-stone {
+  background-color: #e7e5e4 !important;
+  color: #292524 !important;
+}
+
+/* Force white text on dark sections */
+.hero-gradient h1,
+.hero-gradient h2,
+.hero-gradient h3,
+.hero-gradient p,
+.banner-gradient h1,
+.banner-gradient h2,
+.banner-gradient p,
+.card-gradient {
+  color: inherit;
+}
+
+/*
+ * Homepage featured image — full image on phone / tablet / desktop
+ * No fixed aspect-ratio crop: container follows the image.
+ * width:100% + height:auto keeps the entire picture visible.
+ */
+.home-feature-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 1rem;
+  background-color: #f5f5f4;
+  border: 1px solid #e7e5e4;
+  box-shadow: 0 10px 30px rgba(28, 25, 23, 0.1);
+  line-height: 0; /* remove baseline gap under img */
+}
+@media (min-width: 640px) {
+  .home-feature-image {
+    border-radius: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .home-feature-image {
+    border-radius: 1.5rem;
+  }
+}
+.home-feature-image img {
+  position: static;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  object-fit: contain;
+  object-position: center;
+  vertical-align: middle;
+}
+/* Empty placeholder state still needs height */
+.home-feature-image:not(:has(img)) {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: normal;
+  background-color: #1c1917;
+}
+
+/* Course / quiz cover images — fill card edge-to-edge (no side bars) */
+.course-cover {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #b45309 0%, #92400e 50%, #292524 100%);
+  aspect-ratio: 16 / 10;
+}
+@media (min-width: 640px) {
+  .course-cover { aspect-ratio: 16 / 9; }
+}
+@media (min-width: 1024px) {
+  .course-cover { aspect-ratio: 16 / 9; }
+}
+.course-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background-color: transparent;
+}
+
+/* Shared quiz cover (same fill behavior) */
+.quiz-cover {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #57534e 0%, #292524 50%, #18181b 100%);
+  aspect-ratio: 16 / 10;
+}
+@media (min-width: 640px) {
+  .quiz-cover { aspect-ratio: 16 / 9; }
+}
+.quiz-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.course-media-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #0c0a09;
+  border-radius: 1rem;
+  aspect-ratio: 16 / 10;
+}
+@media (min-width: 640px) {
+  .course-media-frame { aspect-ratio: 16 / 9; }
+}
+.course-media-frame img,
+.course-media-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: #0c0a09;
+}
+.course-media-frame video {
+  object-fit: contain;
+  background: #000;
+}
+.course-media-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Classic Winamp-inspired audio player */
+.winamp-skin {
+  background: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 40%, #0d0d0d 100%);
+  color: #b8ff7a;
+  font-family: Tahoma, "Segoe UI", monospace;
+  border: 2px solid #5a5a5a;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 30px rgba(0,0,0,0.45);
+}
+.winamp-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  background: linear-gradient(90deg, #2b2b2b, #4a4a4a 40%, #2b2b2b);
+  border-bottom: 1px solid #111;
+  color: #e8e8e8;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.winamp-logo {
+  font-weight: 800;
+  color: #ffcc33;
+  text-shadow: 0 0 8px rgba(255, 204, 51, 0.45);
+}
+.winamp-sub { color: #cfcfcf; opacity: 0.9; }
+.winamp-body { padding: 10px; }
+.winamp-lcd {
+  background: #0b1a0b;
+  border: 2px inset #333;
+  border-radius: 4px;
+  padding: 8px 10px;
+  box-shadow: inset 0 0 18px rgba(0,0,0,0.65);
+}
+.winamp-lcd-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+.winamp-time {
+  font-weight: 800;
+  color: #9cff57;
+  font-variant-numeric: tabular-nums;
+}
+.winamp-status {
+  color: #7dff3a;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.winamp-marquee {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #b8ff7a;
+  font-size: 12px;
+  margin-bottom: 8px;
+  min-height: 1.2em;
+}
+.winamp-seek {
+  height: 8px;
+  background: #102010;
+  border: 1px solid #244024;
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.winamp-seek-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5dff2a, #d4ff4d);
+  box-shadow: 0 0 8px rgba(120, 255, 60, 0.55);
+}
+.winamp-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.winamp-btn {
+  width: 34px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid #666;
+  background: linear-gradient(180deg, #4a4a4a, #2a2a2a);
+  color: #f0f0f0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.winamp-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.winamp-btn:hover:not(:disabled) { filter: brightness(1.12); }
+.winamp-btn-main {
+  width: 42px;
+  background: linear-gradient(180deg, #6b4b12, #3d2a08);
+  border-color: #b8860b;
+  color: #ffe08a;
+}
+.winamp-vol {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #cfcfcf;
+  min-width: 110px;
+}
+.winamp-vol input[type="range"] {
+  width: 90px;
+  accent-color: #c9a227;
+}
+.winamp-playlist {
+  margin-top: 10px;
+  max-height: 160px;
+  overflow: auto;
+  border: 1px solid #333;
+  background: #101410;
+  border-radius: 4px;
+}
+.winamp-track {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  text-align: left;
+  padding: 6px 8px;
+  border: 0;
+  border-bottom: 1px solid #1c241c;
+  background: transparent;
+  color: #9ad86a;
+  font-size: 11px;
+  cursor: pointer;
+}
+.winamp-track:hover { background: rgba(120, 255, 60, 0.08); }
+.winamp-track.active {
+  background: rgba(255, 204, 51, 0.14);
+  color: #ffe08a;
+}
+.winamp-track-num { opacity: 0.7; width: 22px; }
+.winamp-track-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.winamp-error {
+  margin-top: 8px;
+  color: #ff8e8e;
+  font-size: 11px;
+}
+.winamp-skin audio { display: none; }
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Ensure form controls are visible */
+input,
+select,
+textarea,
+button {
+  color: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #a8a29e;
+  opacity: 1;
+}
+
+/*
+ * Force solid hex for brand palette so colors never collapse to white
+ * on desktop browsers that mishandle oklch/oklab gradient variables.
+ */
+.bg-amber-50 { background-color: #fffbeb !important; }
+.bg-amber-100 { background-color: #fef3c7 !important; }
+.bg-amber-200 { background-color: #fde68a !important; }
+.bg-amber-300 { background-color: #fcd34d !important; }
+.bg-amber-400 { background-color: #fbbf24 !important; }
+.bg-amber-500 { background-color: #d97706 !important; }
+.bg-amber-600 { background-color: #b45309 !important; }
+.bg-amber-700 { background-color: #b45309 !important; color: #ffffff; }
+.bg-amber-800 { background-color: #92400e !important; color: #ffffff; }
+.bg-amber-950 { background-color: #451a03 !important; }
+
+.text-amber-50 { color: #fffbeb !important; }
+.text-amber-100 { color: #fef3c7 !important; }
+.text-amber-200 { color: #fde68a !important; }
+.text-amber-300 { color: #fcd34d !important; }
+.text-amber-400 { color: #fbbf24 !important; }
+.text-amber-600 { color: #b45309 !important; }
+.text-amber-700 { color: #b45309 !important; }
+.text-amber-800 { color: #92400e !important; }
+.text-amber-950 { color: #451a03 !important; }
+
+.border-amber-300 { border-color: #fcd34d !important; }
+.border-amber-400 { border-color: #fbbf24 !important; }
+.border-amber-600 { border-color: #b45309 !important; }
+.ring-amber-600 { --tw-ring-color: #b45309 !important; }
+
+.bg-stone-50 { background-color: #fafaf9 !important; }
+.bg-stone-100 { background-color: #f5f5f4 !important; }
+.bg-stone-200 { background-color: #e7e5e4 !important; }
+.bg-stone-300 { background-color: #d6d3d1 !important; }
+.bg-stone-600 { background-color: #57534e !important; }
+.bg-stone-700 { background-color: #44403c !important; }
+.bg-stone-800 { background-color: #292524 !important; }
+.bg-stone-900 { background-color: #1c1917 !important; color: #f5f5f4; }
+
+.text-stone-200 { color: #e7e5e4 !important; }
+.text-stone-300 { color: #d6d3d1 !important; }
+.text-stone-400 { color: #a8a29e !important; }
+.text-stone-500 { color: #78716c !important; }
+.text-stone-600 { color: #57534e !important; }
+.text-stone-700 { color: #44403c !important; }
+.text-stone-800 { color: #292524 !important; }
+.text-stone-900 { color: #1c1917 !important; }
+
+.border-stone-100 { border-color: #f5f5f4 !important; }
+.border-stone-200 { border-color: #e7e5e4 !important; }
+.border-stone-300 { border-color: #d6d3d1 !important; }
+.border-stone-400 { border-color: #a8a29e !important; }
+
+.bg-zinc-700 { background-color: #3f3f46 !important; }
+.bg-zinc-800 { background-color: #27272a !important; }
+.bg-zinc-900 { background-color: #18181b !important; color: #f5f5f4; }
+.bg-zinc-950 { background-color: #09090b !important; color: #f5f5f4; }
+
+.bg-yellow-100 { background-color: #fef9c3 !important; }
+.text-yellow-900 { color: #713f12 !important; }
+
+/* Gradient helpers with solid fallbacks */
+.bg-gradient-to-br,
+.bg-gradient-to-l,
+.bg-gradient-to-r {
+  background-color: #1c1917;
+}
+.from-zinc-950 { --tw-gradient-from: #09090b !important; }
+.via-stone-900 { --tw-gradient-via: #1c1917 !important; }
+.to-zinc-900 { --tw-gradient-to: #18181b !important; }
+.from-amber-700 { --tw-gradient-from: #b45309 !important; }
+.from-amber-600 { --tw-gradient-from: #b45309 !important; }
+.via-yellow-700 { --tw-gradient-via: #a16207 !important; }
+.to-stone-800 { --tw-gradient-to: #292524 !important; }
+.to-stone-700 { --tw-gradient-to: #44403c !important; }
+.to-yellow-700 { --tw-gradient-to: #a16207 !important; }
+.to-zinc-700 { --tw-gradient-to: #3f3f46 !important; }
+.to-zinc-800 { --tw-gradient-to: #27272a !important; }
+.from-stone-600 { --tw-gradient-from: #57534e !important; }
+.from-yellow-600 { --tw-gradient-from: #ca8a04 !important; }
+.to-amber-800 { --tw-gradient-to: #92400e !important; }
+.from-stone-500 { --tw-gradient-from: #78716c !important; }
+.to-zinc-600 { --tw-gradient-to: #52525b !important; }
+
+.text-white { color: #ffffff !important; }
+.bg-white { background-color: #ffffff !important; }
+
+.hover\:bg-amber-800:hover { background-color: #92400e !important; color: #ffffff !important; }
+.hover\:bg-amber-50:hover { background-color: #fffbeb !important; }
+.hover\:text-amber-700:hover { color: #b45309 !important; }
+.hover\:text-amber-800:hover { color: #92400e !important; }
+.hover\:bg-stone-200:hover { background-color: #e7e5e4 !important; }
+.hover\:bg-stone-50:hover { background-color: #fafaf9 !important; }
+.hover\:bg-stone-300:hover { background-color: #d6d3d1 !important; }
+
+/*
+ * Icon color reliability (desktop + mobile)
+ * Lucide SVGs use stroke="currentColor". Some desktop browsers fail to paint
+ * icons when color is only on a parent utility or when oklch variables break.
+ */
+/* Default: inherit color for all SVG icons */
+svg {
+  color: inherit;
+  flex-shrink: 0;
+}
+
+/* Lucide stroke icons */
+svg.lucide,
+.lucide {
+  stroke: currentColor !important;
+  fill: none !important;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Explicit icon color helpers */
+.icon-white,
+.icon-white svg,
+svg.icon-white {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+.icon-brand,
+.icon-brand svg,
+svg.icon-brand {
+  color: #b45309 !important;
+  stroke: #b45309 !important;
+}
+.icon-brand-dark,
+.icon-brand-dark svg,
+svg.icon-brand-dark {
+  color: #92400e !important;
+  stroke: #92400e !important;
+}
+.icon-charcoal,
+.icon-charcoal svg,
+svg.icon-charcoal {
+  color: #1c1917 !important;
+  stroke: #1c1917 !important;
+}
+.icon-muted,
+.icon-muted svg,
+svg.icon-muted {
+  color: #57534e !important;
+  stroke: #57534e !important;
+}
+.icon-soft,
+.icon-soft svg,
+svg.icon-soft {
+  color: #78716c !important;
+  stroke: #78716c !important;
+}
+.icon-success,
+.icon-success svg,
+svg.icon-success {
+  color: #047857 !important;
+  stroke: #047857 !important;
+}
+.icon-danger,
+.icon-danger svg,
+svg.icon-danger {
+  color: #dc2626 !important;
+  stroke: #dc2626 !important;
+}
+.icon-gold,
+.icon-gold svg,
+svg.icon-gold {
+  color: #fbbf24 !important;
+  stroke: #fbbf24 !important;
+}
+
+/* Nav icons: force visible colors on desktop */
+.nav-active {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+}
+.nav-active svg {
+  color: #92400e !important;
+  stroke: #92400e !important;
+}
+.nav-idle {
+  color: #57534e !important;
+}
+.nav-idle svg {
+  color: #57534e !important;
+  stroke: #57534e !important;
+}
+.nav-idle:hover {
+  background-color: #e7e5e4 !important;
+  color: #1c1917 !important;
+}
+.nav-idle:hover svg {
+  color: #1c1917 !important;
+  stroke: #1c1917 !important;
+}
+
+/* Buttons / chips with solid backgrounds: icons follow text color */
+.btn-primary svg,
+.bg-brand svg,
+.bg-amber-600 svg,
+.bg-amber-700 svg,
+.bg-amber-800 svg,
+.banner-gradient svg,
+.card-gradient svg,
+.icon-gradient svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+.bg-stone-900 svg,
+.bg-zinc-900 svg,
+.bg-charcoal svg,
+.hero-gradient svg {
+  color: #fafaf9 !important;
+  stroke: #fafaf9 !important;
+}
+
+/* Common semantic text colors used by icons (solid hex) */
+.text-red-500 { color: #ef4444 !important; }
+.text-red-600 { color: #dc2626 !important; }
+.text-red-700 { color: #b91c1c !important; }
+.text-emerald-600 { color: #059669 !important; }
+.text-emerald-700 { color: #047857 !important; }
+.text-emerald-800 { color: #065f46 !important; }
+.text-green-600 { color: #16a34a !important; }
+.text-green-700 { color: #15803d !important; }
+.bg-red-50 { background-color: #fef2f2 !important; }
+.bg-emerald-50 { background-color: #ecfdf5 !important; }
+.bg-green-50 { background-color: #f0fdf4 !important; }
+
+/* Ensure text-* color utilities paint SVG stroke on desktop */
+.text-amber-700 svg,
+.text-amber-800 svg,
+.text-amber-600 svg,
+.text-stone-400 svg,
+.text-stone-500 svg,
+.text-stone-600 svg,
+.text-stone-700 svg,
+.text-stone-800 svg,
+.text-stone-900 svg,
+.text-red-500 svg,
+.text-red-600 svg,
+.text-emerald-600 svg,
+.text-emerald-700 svg,
+.text-white svg {
+  color: inherit !important;
+  stroke: currentColor !important;
+}
+
+/* Admin tab buttons */
+.admin-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #57534e;
+}
+.admin-tab svg {
+  color: #57534e !important;
+  stroke: #57534e !important;
+}
+.admin-tab-active {
+  background-color: #b45309 !important;
+  color: #ffffff !important;
+  border-color: #b45309 !important;
+}
+.admin-tab-active svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+.admin-tab-idle {
+  background-color: #ffffff !important;
+  border: 1px solid #d6d3d1 !important;
+  color: #57534e !important;
+}
+.admin-tab-idle:hover {
+  background-color: #f5f5f4 !important;
+}
+.admin-tab-idle:hover svg {
+  color: #1c1917 !important;
+  stroke: #1c1917 !important;
+}
