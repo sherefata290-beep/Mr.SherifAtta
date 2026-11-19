@@ -37,7 +37,7 @@ export default defineConfig(async ({ mode }) => {
   // On Vercel, packages resolve normally from node_modules.
   const alias = {}
   const pairs = [
-    ['dompurify', ['node_modules/dompurify', '/tmp/em-node/node_modules/dompurify']],
+    ['dompurify', ['vendor/dompurify', 'node_modules/dompurify', '/tmp/em-node/node_modules/dompurify']],
     ['jspdf', ['node_modules/jspdf', '/tmp/em-node/node_modules/jspdf']],
     ['jspdf-autotable', ['node_modules/jspdf-autotable', '/tmp/em-node/node_modules/jspdf-autotable']],
     ['html2canvas', ['node_modules/html2canvas', '/tmp/em-node/node_modules/html2canvas']],
